@@ -40,7 +40,7 @@ if (process.env.SENDGRID_API_KEY) {
 app.post('/api/register', async (req, res) => {
   try {
     const { name, email, password } = req.body;
-    
+
     if (!name || !email || !password) {
       return res.status(400).json({ message: "All fields are required" });
     }
@@ -64,9 +64,9 @@ app.post('/api/register', async (req, res) => {
 app.post('/api/login', async (req, res) => {
   try {
     const { email, password } = req.body;
-    
+
     console.log('Login attempt:', email);
-    
+
     if (!email || !password) {
       console.log('Missing email or password');
       return res.status(400).json({ message: "Email and password are required" });
@@ -79,7 +79,7 @@ app.post('/api/login', async (req, res) => {
     }
 
     console.log('User found:', user.email);
-    
+
     const isMatch = await user.comparePassword(password);
     if (!isMatch) {
       console.log('Password mismatch for:', email);
@@ -95,8 +95,8 @@ app.post('/api/login', async (req, res) => {
     );
 
     console.log('Login successful:', email);
-    res.json({ 
-      token, 
+    res.json({
+      token,
       user: { id: user._id, name: user.name, email: user.email }
     });
   } catch (err) {
@@ -109,7 +109,7 @@ app.post('/api/login', async (req, res) => {
 app.post('/api/forgot-password', async (req, res) => {
   try {
     const { email } = req.body;
-    
+
     if (!email) {
       return res.status(400).json({ message: "Email is required" });
     }
@@ -124,7 +124,7 @@ app.post('/api/forgot-password', async (req, res) => {
     user.resetPasswordExpires = Date.now() + 3600000;
     await user.save();
 
-    const frontend = process.env.FRONTEND_URL || process.env.CLIENT_URL || 'http://localhost:5173';
+    const frontend = process.env.FRONTEND_URL || process.env.CLIENT_URL || 'https://my-work-three-omega.vercel.app';
     const resetURL = `${frontend}/reset-password/${resetToken}`;
 
     // Try to send email
