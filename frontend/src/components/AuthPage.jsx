@@ -3,8 +3,8 @@ import axios from 'axios';
 import './AuthPage.css';
 import TermsAndConditions from './TermsAndConditions';
 
-// Hardcoded API URL - change this to your Render backend URL
-const API_URL = 'http://localhost:3000/api';
+// Changed API URL to point to Render backend
+const API_URL = 'https://my-work-niig.onrender.com/api';
 
 const AuthPage = () => {
   const [isSignUp, setIsSignUp] = useState(false);
